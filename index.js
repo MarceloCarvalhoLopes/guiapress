@@ -3,8 +3,13 @@ const app = express();
 const bodyParser = require("body-parser");
 const connection = require("./database/database");
 
+//controller
 const categoriesController = require("./categories/CategoriesController");
 const articlesController = require("./articles/ArticlesController");
+
+//model
+const Article = require("./articles/Article");
+const Category = require("./categories/Category");
 
 
 // view engine
