@@ -16,7 +16,6 @@
             </tr>
         </thead>
         <tbody>
-
             <% categories.forEach(category => { %>     
                 <tr>
                     <th><%= category.id %></th>
@@ -27,8 +26,7 @@
                         <form method="post" action="/categories/delete" style="display:inline" onsubmit="confirmarDelecao(event,this)">
                             <input type="hidden" name="id" value="<%= category.id %> ">
                             <button class="btn btn-danger">Deletar</button>
-                        </form>
-                        
+                        </form>                      
                     </th>
                 </tr>
             <% }) %> 
