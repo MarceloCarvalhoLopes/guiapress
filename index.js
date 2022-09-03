@@ -35,16 +35,20 @@ connection
 app.use("/",categoriesController) ;
 app.use("/",articlesController) ;
 
+//view de artigos
 app.get("/", (req,res)=>{
     Article.findAll({
         order:[
             ['id', 'DESC']
         ]
     }).then(articles =>{
-        res.render("index", {articles : articles});
+        Category.findAll().then(categories => {
+            res.render("index", {articles : articles, categories: categories});
+        });              
     });  
 });
 
+//view de artigos slug
 app.get("/:slug",(req, res) =>{
     var slug = req.params.slug;
     Article.findOne({
@@ -53,7 +57,9 @@ app.get("/:slug",(req, res) =>{
         }
     }).then(article => {
         if(article != undefined){
-            res.render("article",{article : article});
+            Category.findAll().then(categories => {
+                res.render("index", {article : article, categories: categories});
+            });
         }else{
             res.redirect("/")
         }
