@@ -58,7 +58,7 @@ app.get("/:slug",(req, res) =>{
     }).then(article => {
         if(article != undefined){
             Category.findAll().then(categories => {
-                res.render("index", {article : article, categories: categories});
+                res.render("article", {article : article, categories: categories});
             });
         }else{
             res.redirect("/")
@@ -67,6 +67,30 @@ app.get("/:slug",(req, res) =>{
         res.redirect("/")
     })
 });
+
+//Filtrando artigos por categoria
+app.get("/category/:slug",(req, res) =>{
+    var slug = req.params.slug;
+    Category.findOne({
+        where: {
+            slug : slug
+        },
+        include: [{model: Article}]
+    }).then(category => {
+        if (category != undefined){
+
+            Category.findAll().then(categories => {
+                res.render("index", {articles: category.articles, categories: categories})
+            });
+
+        }else{
+            res.redirect("/");
+        }
+    }).catch( err => {
+        res.redirect("/");
+    })
+})
+
 
 app.listen(8080, ()=> {
     console.log("Server is running!");
