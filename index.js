@@ -22,7 +22,7 @@ app.set('view engine','ejs');
 //session
 
 app.use(session({
-    secret: "qualquercoisa", cookie: {maxAge : 30000}
+    secret: "qualquercoisa", cookie: {maxAge : 300000}
 }))
 
 //static
@@ -45,6 +45,7 @@ connection
 app.use("/",categoriesController) ;
 app.use("/",articlesController) ;
 app.use("/",usersController);
+
 
 //view de artigos
 app.get("/", (req,res)=>{
